@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tessera WASM Showcase</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <h1>Tessera WASM Showcase</h1>
+      <p>Pathfinding, FOV, procedural generation, and hex utilities running in-browser.</p>
+    </header>
+
+    <nav class="tabs" aria-label="Demo tabs">
+      <button class="tab active" data-tab="path">Pathfinding</button>
+      <button class="tab" data-tab="fov">Field of View</button>
+      <button class="tab" data-tab="gen">Dungeon Generator</button>
+      <button class="tab" data-tab="hex">Hex Grid</button>
+    </nav>
+
+    <section class="panel active" id="panel-path">
+      <div class="controls">
+        <button id="clearWalls">Clear Walls</button>
+        <button id="randomWalls">Random Walls</button>
+        <p>Click to toggle walls. <strong>Shift+Click</strong> start, <strong>Ctrl/Cmd+Click</strong> goal.</p>
+        <div id="pathStats" class="stats"></div>
+      </div>
+      <canvas id="squareCanvas" width="960" height="600"></canvas>
+    </section>
+
+    <section class="panel" id="panel-fov">
+      <div class="controls">
+        <label for="fovRadius">Radius</label>
+        <input id="fovRadius" type="range" min="3" max="20" value="10" />
+        <p>Click to toggle walls. Shift+Click moves the FOV origin.</p>
+      </div>
+      <canvas id="fovCanvas" width="960" height="600"></canvas>
+    </section>
+
+    <section class="panel" id="panel-gen">
+      <div class="controls">
+        <label for="genAlgo">Algorithm</label>
+        <select id="genAlgo">
+          <option value="bsp">BSP</option>
+          <option value="cellular">Cellular</option>
+          <option value="drunkard">Drunkard</option>
+        </select>
+        <button id="regenerate">Regenerate</button>
+        <p id="genStats" class="stats"></p>
+      </div>
+      <canvas id="genCanvas" width="960" height="600"></canvas>
+    </section>
+
+    <section class="panel" id="panel-hex">
+      <div class="controls">
+        <label for="hexRadius">Radius</label>
+        <input id="hexRadius" type="range" min="2" max="12" value="6" />
+        <label for="goalQ">Goal Q</label>
+        <input id="goalQ" type="number" value="3" />
+        <label for="goalR">Goal R</label>
+        <input id="goalR" type="number" value="-2" />
+        <button id="hexRecalc">Recalculate</button>
+        <p id="hexStats" class="stats"></p>
+      </div>
+      <canvas id="hexCanvas" width="960" height="640"></canvas>
+    </section>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

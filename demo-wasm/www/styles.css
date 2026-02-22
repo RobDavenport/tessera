@@ -1,0 +1,145 @@
+:root {
+  --bg: #f0ece2;
+  --paper: #fffdf7;
+  --ink: #1b1916;
+  --accent: #0f766e;
+  --accent-2: #c2410c;
+  --muted: #6b665d;
+  --shadow: 0 14px 32px rgba(27, 25, 22, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 20% 12%, #d5efe7 0%, transparent 40%),
+    radial-gradient(circle at 80% 18%, #ffe2d1 0%, transparent 43%),
+    linear-gradient(160deg, #f6f1e8 0%, #efe7d9 100%);
+  font-family: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.hero {
+  background: var(--paper);
+  border: 1px solid rgba(27, 25, 22, 0.1);
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+
+.hero p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.tab {
+  border: 1px solid rgba(27, 25, 22, 0.25);
+  background: #fef7e8;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.55rem 0.75rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: linear-gradient(90deg, #0f766e, #0e5f85);
+  color: #fff;
+  border-color: transparent;
+}
+
+.panel {
+  display: none;
+  background: var(--paper);
+  border: 1px solid rgba(27, 25, 22, 0.1);
+  border-radius: 16px;
+  padding: 0.9rem;
+  box-shadow: var(--shadow);
+}
+
+.panel.active {
+  display: block;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.8rem;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.controls p {
+  margin: 0;
+  color: var(--muted);
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+button {
+  border: 1px solid rgba(27, 25, 22, 0.2);
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+input[type="number"] {
+  width: 4.2rem;
+  border: 1px solid rgba(27, 25, 22, 0.2);
+  border-radius: 8px;
+  padding: 0.3rem 0.4rem;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(27, 25, 22, 0.15);
+  background: #fff;
+}
+
+.stats {
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  .tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

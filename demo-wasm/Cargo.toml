@@ -1,0 +1,17 @@
+[package]
+name = "demo-wasm"
+version = "0.1.0"
+edition = "2021"
+description = "Browser showcase for tessera algorithms (WASM)"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+tessera = { path = ".." }
+rand_core = { path = "../vendor/rand_core" }
+wasm-bindgen = "0.2"
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false

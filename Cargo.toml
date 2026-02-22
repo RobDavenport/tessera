@@ -1,0 +1,13 @@
+[package]
+name = "tessera"
+version = "0.1.0"
+edition = "2021"
+description = "no_std spatial grids, pathfinding, and procedural generation primitives"
+license = "MIT"
+
+[dependencies]
+rand_core = { path = "vendor/rand_core", default-features = false }
+libm = { path = "vendor/libm", default-features = false }
+
+[features]
+default = []

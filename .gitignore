@@ -1,0 +1,17 @@
+# Rust
+/target/
+**/*.rs.bk
+
+# wasm-pack outputs
+/demo-wasm/pkg/
+/demo-wasm/target/
+
+# Web tooling
+/demo-wasm/www/node_modules/
+/site/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
