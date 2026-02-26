@@ -9,6 +9,15 @@
 
 The implementation follows `IMPLEMENTATION.md`.
 
+## Live Showcase
+
+- Interactive WASM demo: <https://robdavenport.github.io/tessera/>
+- Demo source: `demo-wasm/`
+- GitHub Pages workflow: `.github/workflows/pages.yml`
+
+If this is your first deployment, set `Settings -> Pages -> Build and deployment -> Source` to `GitHub Actions`.
+After pushing to `main`, GitHub Actions builds the WASM demo and deploys it to Pages automatically.
+
 ## Project Layout
 
 - `src/`: core library modules
