@@ -30,8 +30,14 @@ impl Default for DrunkardConfig {
 
 pub fn drunkard_generate(config: &DrunkardConfig, rng: &mut impl RngCore) -> Grid<bool> {
     let mut grid = Grid::new_filled(config.width, config.height, false);
+    if config.width == 0 || config.height == 0 {
+        return grid;
+    }
+
     let target = (config.target_floor_ratio.clamp(0.0, 1.0) * grid.len() as f32) as usize;
     let mut carved = 0usize;
+    let (min_x, max_x) = walker_axis_bounds(config.width);
+    let (min_y, max_y) = walker_axis_bounds(config.height);
 
     let center = Coord2::new(config.width as i32 / 2, config.height as i32 / 2);
     for _ in 0..config.num_walkers {
@@ -39,7 +45,7 @@ pub fn drunkard_generate(config: &DrunkardConfig, rng: &mut impl RngCore) -> Gri
         let mut dir = Dir4::ALL[(rng.next_u32() % 4) as usize];
 
         for _ in 0..config.max_steps {
-            if !grid.get(pos).copied().unwrap_or(false) {
+            if grid.in_bounds(pos) && !grid.get(pos).copied().unwrap_or(false) {
                 grid.set(pos, true);
                 carved += 1;
                 if carved >= target {
@@ -52,13 +58,21 @@ pub fn drunkard_generate(config: &DrunkardConfig, rng: &mut impl RngCore) -> Gri
             }
 
             let mut next = pos + dir.offset();
-            next.x = next.x.clamp(1, config.width as i32 - 2);
-            next.y = next.y.clamp(1, config.height as i32 - 2);
+            next.x = next.x.clamp(min_x, max_x);
+            next.y = next.y.clamp(min_y, max_y);
             pos = next;
         }
     }
 
     grid
+}
+
+fn walker_axis_bounds(size: u32) -> (i32, i32) {
+    match size {
+        0 => (0, 0),
+        1 | 2 => (0, size as i32 - 1),
+        _ => (1, size as i32 - 2),
+    }
 }
 
 #[cfg(test)]
@@ -121,5 +135,21 @@ mod tests {
         let region = flood_fill(&grid, center, |c| grid.get(c).copied().unwrap_or(false));
         let total_floor = grid.cells().iter().filter(|v| **v).count();
         assert!(region.cells.len() >= total_floor / 2);
+    }
+
+    #[test]
+    fn drunkard_small_map_no_panic() {
+        let cfg = DrunkardConfig {
+            width: 2,
+            height: 2,
+            max_steps: 16,
+            num_walkers: 2,
+            turn_chance: 35,
+            target_floor_ratio: 1.0,
+        };
+        let mut rng = TestRng(11);
+        let grid = drunkard_generate(&cfg, &mut rng);
+        let floors = grid.cells().iter().filter(|v| **v).count();
+        assert!(floors > 0 && floors <= 4);
     }
 }
